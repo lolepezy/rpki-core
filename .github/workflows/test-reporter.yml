@@ -1,3 +1,4 @@
+name: JUnit Tests 
 on:
   pull_request:
   push:
@@ -8,7 +9,7 @@ jobs:
     # runs-on: gradle:7.5.1-jdk8
     services:
       postgres:
-        image: postgres:12.2
+        image: postgres:12.11
         env:
           POSTGRES_USER: certdb
           POSTGRES_PASSWORD: certdb
@@ -18,12 +19,12 @@ jobs:
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
 
     steps:
-      - uses: actions/checkout@v2     # checkout the repo      
+      - uses: actions/checkout@v2
       - run: ./gradlew test
       - name: Test Report
         uses: dorny/test-reporter@v1
         if: success() || failure()    # run this step even if previous step failed
         with:
-          name: JUnit Tests            # Name of the check run which will be created
-          path: 'build/test-results/test/TEST-*.xml'    # Path to test results
-          reporter: java-junit        # Format of test results
+          name: JUnit Tests            
+          path: 'build/test-results/test/TEST-*.xml'
+          reporter: java-junit
