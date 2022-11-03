@@ -10,7 +10,7 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v1
       - name: Build and Run Tests
-        run: 
+        run: ./gradlew test 
       - name: Publish Test Report
         uses: mikepenz/action-junit-report@v3
         if: always()
